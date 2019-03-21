@@ -1,10 +1,10 @@
 {
-    "name": "akrabat/rka-content-type-renderer",
+    "name": "krysk1286/rka-content-type-renderer",
     "description": "Render an array to a JSON/XML/HTML PSR-7 Response based on a PSR-7 Request's Accept header.",
     "keywords": [
         "psr7", "json", "xml"
     ],
-    "homepage": "http://github.com/akrabat/rka-content-type-renderer",
+    "homepage": "http://github.com/krysk1286/rka-content-type-renderer",
     "type": "library",
     "license": "BSD-3-Clause",
     "authors": [
