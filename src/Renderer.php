@@ -25,6 +25,7 @@ class Renderer
     protected $xmlRootElementName = 'root';
     protected $htmlPrefix;
     protected $htmlPostfix;
+    protected $overrideMediaType;
 
     public function __construct($pretty = true)
     {
@@ -190,7 +191,10 @@ class Renderer
      */
     protected function determineMediaType($acceptHeader)
     {
-        if (!empty($acceptHeader)) {
+        if(!empty($this->getOverrideMediaType()))
+        {
+            return $this->getOverrideMediaType();
+        }elseif (!empty($acceptHeader)) {
             $negotiator = new Negotiator();
             $mediaType = $negotiator->getBest($acceptHeader, $this->knownMediaTypes);
 
@@ -254,6 +258,32 @@ class Renderer
     public function setDefaultMediaType($defaultMediaType)
     {
         $this->defaultMediaType = $defaultMediaType;
+        return $this;
+    }
+
+
+    /**
+     * Getter for overrideMediaType
+     *
+     * @return string
+     */
+    public function getOverrideMediaType()
+    {
+        return $this->overrideMediaType;
+    }
+
+    /**
+     * Setter for overrideMediaType
+     *
+     * @return self
+     */
+    public function setOverrideMediaType($mediaType)
+    {
+        if(!in_array($mediaType,$this->knownMediaTypes))
+        {
+            throw new \Exception(sprintf('MediaType %s is disallowed or doesn\'t known', $mediaType));
+        }
+        $this->overrideMediaType = $mediaType;
         return $this;
     }
 
